@@ -1,7 +1,7 @@
 import os
 
 # Ruta al directorio principal de tu proyecto
-ruta_proyecto = r"C:\laragon\www\admin-green-frontend\src"
+ruta_proyecto = r"C:\TuRuta"
 
 # Función para obtener todos los archivos en un directorio y subdirectorios
 def obtener_archivos(ruta):
