@@ -1,22 +1,14 @@
 import os
 import tkinter as tk
 from tkinter import messagebox, simpledialog, ttk
-from ttkthemes import ThemedTk
 
 # Nombre del archivo de historial
 HISTORIAL_FILE = "historial_rutas.txt"
 
-# Crear la ventana principal usando ttkthemes para un mejor diseño
-root = ThemedTk(theme="radiance")
+# Crear la ventana principal
+root = tk.Tk()
 root.title("Gestor de Rutas")
 root.geometry("600x400")
-
-# Estilo para botones y listas
-style = ttk.Style()
-style.configure(
-    "TButton", padding=6, relief="flat", background="#4CAF50", foreground="#FFFFFF"
-)
-style.configure("TLabel", background="#FFFFFF", font=("Arial", 12))
 
 # Historial de rutas buscadas
 historial = []
@@ -39,11 +31,6 @@ def escribir_historial():
         for ruta in historial:
             f.write(ruta + "\n")
 
-<<<<<<< HEAD
-=======
-# Ruta al directorio principal de tu proyecto
-ruta_proyecto = r"C:\TuRuta"
->>>>>>> c8a19edb5b65d169e364023c5261dcea9d62ddae
 
 # Función para obtener todos los archivos en un directorio y subdirectorios
 def obtener_archivos(ruta):
@@ -72,23 +59,21 @@ def buscar_rutas():
     if ruta:
         archivos = obtener_archivos(ruta)
         mostrar_archivos(archivos)
-        historial.append(ruta)
-        historial_listbox.insert(tk.END, ruta)  # Agregar la ruta al historial
-        escribir_historial()  # Guardar el historial en el archivo
+        if ruta not in historial:
+            historial.append(ruta)
+            historial_listbox.insert(tk.END, ruta)  # Agregar la ruta al historial
+            escribir_historial()  # Guardar el historial en el archivo
 
 
-# Función para copiar rutas
+# Función para copiar rutas sin mostrar otra ventana de confirmación
 def copiar_rutas():
     rutas = archivos_listbox.get(0, tk.END)
     if rutas:
         root.clipboard_clear()
         root.clipboard_append("\n".join(rutas))
-        messagebox.showinfo("Éxito", "Las rutas han sido copiadas al portapapeles.")
-    else:
-        messagebox.showerror("Error", "No hay rutas para copiar.")
 
 
-# Función para seleccionar una ruta del historial
+# Función para seleccionar una ruta del historial y buscar los archivos
 def seleccionar_historial(event):
     seleccion = historial_listbox.curselection()
     if seleccion:
@@ -97,17 +82,20 @@ def seleccionar_historial(event):
         mostrar_archivos(archivos)
 
 
-# Crear los widgets
-buscar_button = ttk.Button(root, text="Buscar Rutas", command=buscar_rutas)
-buscar_button.pack(pady=10)
+# Crear los widgets sin estilos adicionales para los botones
+frame_botones = tk.Frame(root)
+frame_botones.pack(pady=10)
 
-copiar_button = ttk.Button(root, text="Copiar Rutas", command=copiar_rutas)
-copiar_button.pack(pady=10)
+buscar_button = tk.Button(frame_botones, text="Buscar Rutas", command=buscar_rutas)
+buscar_button.pack(side=tk.LEFT, padx=5)
+
+copiar_button = tk.Button(frame_botones, text="Copiar Rutas", command=copiar_rutas)
+copiar_button.pack(side=tk.LEFT, padx=5)
 
 archivos_listbox = tk.Listbox(root, width=80, height=10)
 archivos_listbox.pack(pady=10)
 
-historial_label = ttk.Label(root, text="Historial de Rutas")
+historial_label = ttk.Label(root, text="Historial de Rutas Buscadas")
 historial_label.pack()
 
 historial_listbox = tk.Listbox(root, width=80, height=5)

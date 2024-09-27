@@ -1,14 +1,3 @@
-C:\laragon\www\CarritoCompras\css\style.css
-C:\laragon\www\CarritoCompras\includes\db.php
-C:\laragon\www\CarritoCompras\js\app.js
-C:\laragon\www\CarritoCompras\views\add_product.php
-C:\laragon\www\CarritoCompras\views\add_to_cart.php
-C:\laragon\www\CarritoCompras\views\agregarAlCarrito.php
-C:\laragon\www\CarritoCompras\views\comprar.php
-C:\laragon\www\CarritoCompras\views\getCartItems.php
-C:\laragon\www\CarritoCompras\views\getPurchaseHistory.php
-C:\laragon\www\CarritoCompras\views\historial.php
-C:\laragon\www\CarritoCompras\views\index.php
-C:\laragon\www\CarritoCompras\views\load_purchase_history.php
-C:\laragon\www\CarritoCompras\views\process_purchase.php
-C:\laragon\www\CarritoCompras\views\removeFromCart.php
+C:\laragon\www\CarritoCompras
+C:\laragon\www\Ecommerce-php
+C:\laragon\www\FloresAmarilla
