@@ -39,6 +39,11 @@ def escribir_historial():
         for ruta in historial:
             f.write(ruta + "\n")
 
+<<<<<<< HEAD
+=======
+# Ruta al directorio principal de tu proyecto
+ruta_proyecto = r"C:\TuRuta"
+>>>>>>> c8a19edb5b65d169e364023c5261dcea9d62ddae
 
 # Función para obtener todos los archivos en un directorio y subdirectorios
 def obtener_archivos(ruta):
