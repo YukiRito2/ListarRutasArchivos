@@ -1,6 +1,7 @@
 import os
 import tkinter as tk
 from tkinter import simpledialog, ttk, filedialog
+import threading
 
 # Nombre del archivo de historial
 HISTORIAL_FILE = "historial_rutas.txt"
@@ -32,16 +33,20 @@ def escribir_historial():
             f.write(ruta + "\n")
 
 
-# Función para obtener todos los archivos en un directorio y subdirectorios
-def obtener_archivos(ruta):
-    archivos = []
-    try:
-        for dirpath, _, filenames in os.walk(ruta):
-            for filename in filenames:
-                archivos.append(os.path.join(dirpath, filename))
-    except Exception as e:
-        print(f"Error al acceder al directorio: {e}")
-    return archivos
+# Función para obtener todos los archivos en un directorio y subdirectorios (en un hilo separado)
+def obtener_archivos_en_hilo(ruta):
+    def obtener_archivos():
+        archivos = []
+        try:
+            for dirpath, _, filenames in os.walk(ruta):
+                for filename in filenames:
+                    archivos.append(os.path.join(dirpath, filename))
+        except Exception as e:
+            print(f"Error al acceder al directorio: {e}")
+        mostrar_archivos(archivos)  # Actualizar la lista de archivos en la interfaz
+
+    # Crear y empezar el hilo para obtener los archivos
+    threading.Thread(target=obtener_archivos).start()
 
 
 # Función para mostrar archivos en la lista
@@ -55,14 +60,12 @@ def mostrar_archivos(archivos):
 def seleccionar_carpeta_y_buscar():
     carpeta = filedialog.askdirectory(title="Seleccionar Carpeta")
     if carpeta:
-        archivos = obtener_archivos(carpeta)
-        mostrar_archivos(archivos)
+        obtener_archivos_en_hilo(carpeta)
         if carpeta not in historial:
             historial.append(carpeta)
             historial_listbox.insert(tk.END, carpeta)  # Agregar la carpeta al historial
             escribir_historial()  # Guardar en el archivo
-        # Cerrar la ventana de búsqueda automáticamente después de seleccionar la carpeta
-        ventana.destroy()
+        ventana.destroy()  # Cerrar la ventana de búsqueda
 
 
 # Nueva ventana para ingresar la ruta o buscar carpeta
@@ -97,8 +100,7 @@ def ventana_buscar_ruta():
     def confirmar_ruta():
         ruta = ruta_entry.get()
         if ruta and ruta != "Escribe la ruta aquí":
-            archivos = obtener_archivos(ruta)
-            mostrar_archivos(archivos)
+            obtener_archivos_en_hilo(ruta)
             if ruta not in historial:
                 historial.append(ruta)
                 historial_listbox.insert(tk.END, ruta)  # Agregar la ruta al historial
@@ -136,8 +138,7 @@ def seleccionar_historial(event):
     seleccion = historial_listbox.curselection()
     if seleccion:
         ruta = historial_listbox.get(seleccion)
-        archivos = obtener_archivos(ruta)
-        mostrar_archivos(archivos)
+        obtener_archivos_en_hilo(ruta)
 
 
 # Crear los widgets sin estilos adicionales para los botones

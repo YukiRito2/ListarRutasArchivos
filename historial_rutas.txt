@@ -5,3 +5,5 @@ C:\laragon\www\intranet-frontend\src
 C:/Users/User/OneDrive/Documentos/Call of Duty/players
 C:/laragon/www/GreenCommerce
 C:/laragon/www/carrito
+C:/laragon/www/backend-choza-azul
+C:/laragon/www/backend-greendata
