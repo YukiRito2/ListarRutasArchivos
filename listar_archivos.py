@@ -51,14 +51,23 @@ def mostrar_archivos(archivos):
         archivos_listbox.insert(tk.END, archivo)
 
 
+# Función para manejar la búsqueda automática cuando se selecciona una carpeta
+def seleccionar_carpeta_y_buscar():
+    carpeta = filedialog.askdirectory(title="Seleccionar Carpeta")
+    if carpeta:
+        archivos = obtener_archivos(carpeta)
+        mostrar_archivos(archivos)
+        if carpeta not in historial:
+            historial.append(carpeta)
+            historial_listbox.insert(tk.END, carpeta)  # Agregar la carpeta al historial
+            escribir_historial()  # Guardar en el archivo
+        # Cerrar la ventana de búsqueda automáticamente después de seleccionar la carpeta
+        ventana.destroy()
+
+
 # Nueva ventana para ingresar la ruta o buscar carpeta
 def ventana_buscar_ruta():
-    def seleccionar_carpeta():
-        carpeta = filedialog.askdirectory(title="Seleccionar Carpeta")
-        if carpeta:
-            ruta_entry.delete(0, tk.END)
-            ruta_entry.insert(0, carpeta)
-
+    global ventana  # Hacer la ventana accesible dentro de la función de búsqueda automática
     ventana = tk.Toplevel(root)
     ventana.title("Buscar o Seleccionar Carpeta")
     ventana.geometry("400x180")
@@ -79,7 +88,9 @@ def ventana_buscar_ruta():
     frame_botones_ventana.pack(pady=10)
 
     buscar_carpeta_button = tk.Button(
-        frame_botones_ventana, text="Seleccionar Carpeta", command=seleccionar_carpeta
+        frame_botones_ventana,
+        text="Seleccionar Carpeta",
+        command=seleccionar_carpeta_y_buscar,
     )
     buscar_carpeta_button.pack(side=tk.LEFT, padx=5)
 
