@@ -9,3 +9,5 @@ C:/laragon/www/backend-choza-azul
 C:/laragon/www/backend-greendata
 C:/laragon/www/backend-greendata/node_modules
 C:/laragon/www/GreenCommerce/src
+C:/laragon/www/busca archivos
+C:/laragon/www/intranet-frontend/src/app

@@ -11,6 +11,18 @@ root = tk.Tk()
 root.title("Gestor de Rutas")
 root.geometry("600x400")
 
+
+# Función para centrar una ventana
+def centrar_ventana(ventana, width=600, height=400):
+    ventana.update_idletasks()
+    x = (ventana.winfo_screenwidth() // 2) - (width // 2)
+    y = (ventana.winfo_screenheight() // 2) - (height // 2)
+    ventana.geometry(f"{width}x{height}+{x}+{y}")
+
+
+# Centrar la ventana principal
+centrar_ventana(root)
+
 # Historial de rutas buscadas
 historial = []
 
@@ -74,6 +86,9 @@ def ventana_buscar_ruta():
     ventana = tk.Toplevel(root)
     ventana.title("Buscar o Seleccionar Carpeta")
     ventana.geometry("400x180")
+
+    # Centrar la ventana de búsqueda sobre la ventana principal
+    centrar_ventana(ventana, 400, 180)
 
     label = tk.Label(ventana, text="Pega la ruta o selecciona una carpeta:")
     label.pack(pady=10)
