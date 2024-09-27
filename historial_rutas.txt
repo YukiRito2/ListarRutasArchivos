@@ -7,3 +7,5 @@ C:/laragon/www/GreenCommerce
 C:/laragon/www/carrito
 C:/laragon/www/backend-choza-azul
 C:/laragon/www/backend-greendata
+C:/laragon/www/backend-greendata/node_modules
+C:/laragon/www/GreenCommerce/src
