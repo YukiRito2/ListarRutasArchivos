@@ -174,9 +174,21 @@ archivos_listbox.pack(pady=10)
 historial_label = ttk.Label(root, text="Historial de Rutas Buscadas")
 historial_label.pack()
 
-historial_listbox = tk.Listbox(root, width=80, height=5)
-historial_listbox.pack(pady=5)
-historial_listbox.bind("<<ListboxSelect>>", seleccionar_historial)
+# Sección del historial de rutas buscadas con scrollbar
+frame_historial = tk.Frame(root)
+frame_historial.pack(pady=5)
+
+# Scrollbar para el historial
+scrollbar_historial = tk.Scrollbar(frame_historial)
+scrollbar_historial.pack(side=tk.RIGHT, fill=tk.Y)
+
+# Listbox del historial con scrollbar
+historial_listbox = tk.Listbox(
+    frame_historial, width=80, height=7, yscrollcommand=scrollbar_historial.set
+)
+historial_listbox.pack(side=tk.LEFT, fill=tk.BOTH)
+
+scrollbar_historial.config(command=historial_listbox.yview)
 
 # Etiqueta para la notificación temporal
 notificacion_label = tk.Label(root, text="", fg="green")
