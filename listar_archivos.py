@@ -60,23 +60,32 @@ def ventana_buscar_ruta():
             ruta_entry.insert(0, carpeta)
 
     ventana = tk.Toplevel(root)
-    ventana.title("Buscar Rutas o Carpeta")
-    ventana.geometry("400x200")
+    ventana.title("Buscar o Seleccionar Carpeta")
+    ventana.geometry("400x180")
 
-    label = tk.Label(ventana, text="Introduce la dirección o selecciona una carpeta:")
+    label = tk.Label(ventana, text="Pega la ruta o selecciona una carpeta:")
     label.pack(pady=10)
 
+    # Crear un Entry con texto de sugerencia (placeholder)
     ruta_entry = tk.Entry(ventana, width=50)
+    ruta_entry.insert(0, "Pega la ruta aquí ")
+    ruta_entry.bind(
+        "<FocusIn>", lambda event: ruta_entry.delete(0, tk.END)
+    )  # Borra el placeholder al hacer clic
     ruta_entry.pack(pady=5)
 
+    # Crear frame para botones alineados
+    frame_botones_ventana = tk.Frame(ventana)
+    frame_botones_ventana.pack(pady=10)
+
     buscar_carpeta_button = tk.Button(
-        ventana, text="Buscar Carpeta", command=seleccionar_carpeta
+        frame_botones_ventana, text="Seleccionar Carpeta", command=seleccionar_carpeta
     )
-    buscar_carpeta_button.pack(pady=5)
+    buscar_carpeta_button.pack(side=tk.LEFT, padx=5)
 
     def confirmar_ruta():
         ruta = ruta_entry.get()
-        if ruta:
+        if ruta and ruta != "Escribe la ruta aquí":
             archivos = obtener_archivos(ruta)
             mostrar_archivos(archivos)
             if ruta not in historial:
@@ -85,8 +94,10 @@ def ventana_buscar_ruta():
                 escribir_historial()  # Guardar el historial en el archivo
         ventana.destroy()
 
-    confirmar_button = tk.Button(ventana, text="Confirmar Ruta", command=confirmar_ruta)
-    confirmar_button.pack(pady=10)
+    confirmar_button = tk.Button(
+        frame_botones_ventana, text="Buscar ruta", command=confirmar_ruta
+    )
+    confirmar_button.pack(side=tk.LEFT, padx=5)
 
 
 # Función para copiar rutas con notificación sin ventana
