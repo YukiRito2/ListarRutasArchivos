@@ -1,6 +1,6 @@
 import os
 import tkinter as tk
-from tkinter import simpledialog, ttk
+from tkinter import simpledialog, ttk, filedialog
 
 # Nombre del archivo de historial
 HISTORIAL_FILE = "historial_rutas.txt"
@@ -51,18 +51,42 @@ def mostrar_archivos(archivos):
         archivos_listbox.insert(tk.END, archivo)
 
 
-# Función para manejar la búsqueda de rutas
-def buscar_rutas():
-    ruta = simpledialog.askstring(
-        "Introduce la dirección", "Introduce la dirección del proyecto:"
+# Nueva ventana para ingresar la ruta o buscar carpeta
+def ventana_buscar_ruta():
+    def seleccionar_carpeta():
+        carpeta = filedialog.askdirectory(title="Seleccionar Carpeta")
+        if carpeta:
+            ruta_entry.delete(0, tk.END)
+            ruta_entry.insert(0, carpeta)
+
+    ventana = tk.Toplevel(root)
+    ventana.title("Buscar Rutas o Carpeta")
+    ventana.geometry("400x200")
+
+    label = tk.Label(ventana, text="Introduce la dirección o selecciona una carpeta:")
+    label.pack(pady=10)
+
+    ruta_entry = tk.Entry(ventana, width=50)
+    ruta_entry.pack(pady=5)
+
+    buscar_carpeta_button = tk.Button(
+        ventana, text="Buscar Carpeta", command=seleccionar_carpeta
     )
-    if ruta:
-        archivos = obtener_archivos(ruta)
-        mostrar_archivos(archivos)
-        if ruta not in historial:
-            historial.append(ruta)
-            historial_listbox.insert(tk.END, ruta)  # Agregar la ruta al historial
-            escribir_historial()  # Guardar el historial en el archivo
+    buscar_carpeta_button.pack(pady=5)
+
+    def confirmar_ruta():
+        ruta = ruta_entry.get()
+        if ruta:
+            archivos = obtener_archivos(ruta)
+            mostrar_archivos(archivos)
+            if ruta not in historial:
+                historial.append(ruta)
+                historial_listbox.insert(tk.END, ruta)  # Agregar la ruta al historial
+                escribir_historial()  # Guardar el historial en el archivo
+        ventana.destroy()
+
+    confirmar_button = tk.Button(ventana, text="Confirmar Ruta", command=confirmar_ruta)
+    confirmar_button.pack(pady=10)
 
 
 # Función para copiar rutas con notificación sin ventana
@@ -98,7 +122,9 @@ def seleccionar_historial(event):
 frame_botones = tk.Frame(root)
 frame_botones.pack(pady=10)
 
-buscar_button = tk.Button(frame_botones, text="Buscar Rutas", command=buscar_rutas)
+buscar_button = tk.Button(
+    frame_botones, text="Buscar Rutas", command=ventana_buscar_ruta
+)
 buscar_button.pack(side=tk.LEFT, padx=5)
 
 copiar_button = tk.Button(frame_botones, text="Copiar Rutas", command=copiar_rutas)
