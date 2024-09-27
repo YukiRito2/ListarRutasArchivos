@@ -1,6 +1,6 @@
 import os
 import tkinter as tk
-from tkinter import messagebox, simpledialog, ttk
+from tkinter import simpledialog, ttk
 
 # Nombre del archivo de historial
 HISTORIAL_FILE = "historial_rutas.txt"
@@ -40,7 +40,7 @@ def obtener_archivos(ruta):
             for filename in filenames:
                 archivos.append(os.path.join(dirpath, filename))
     except Exception as e:
-        messagebox.showerror("Error", f"Error al acceder al directorio: {e}")
+        print(f"Error al acceder al directorio: {e}")
     return archivos
 
 
@@ -65,12 +65,24 @@ def buscar_rutas():
             escribir_historial()  # Guardar el historial en el archivo
 
 
-# Función para copiar rutas sin mostrar otra ventana de confirmación
+# Función para copiar rutas con notificación sin ventana
 def copiar_rutas():
     rutas = archivos_listbox.get(0, tk.END)
     if rutas:
         root.clipboard_clear()
         root.clipboard_append("\n".join(rutas))
+        mostrar_notificacion("Rutas copiadas al portapapeles")
+
+
+# Función para mostrar una notificación temporal
+def mostrar_notificacion(mensaje):
+    notificacion_label.config(text=mensaje)
+    notificacion_label.pack()
+    root.after(2000, ocultar_notificacion)  # Ocultar después de 2 segundos
+
+
+def ocultar_notificacion():
+    notificacion_label.pack_forget()
 
 
 # Función para seleccionar una ruta del historial y buscar los archivos
@@ -101,6 +113,9 @@ historial_label.pack()
 historial_listbox = tk.Listbox(root, width=80, height=5)
 historial_listbox.pack(pady=5)
 historial_listbox.bind("<<ListboxSelect>>", seleccionar_historial)
+
+# Etiqueta para la notificación temporal
+notificacion_label = tk.Label(root, text="", fg="green")
 
 # Cargar historial desde el archivo txt
 historial = leer_historial()
