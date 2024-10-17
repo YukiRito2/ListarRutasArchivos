@@ -23,4 +23,4 @@ Este proyecto está desarrollado usando solo bibliotecas estándar de Python, po
 1. Clona este repositorio en tu máquina local:
 
    ```bash
-   git clone https://github.com/tu-usuario/tu-repositorio.git
+   https://github.com/YukiRito2/ListarRutasArchivos.git
