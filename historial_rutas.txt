@@ -12,3 +12,5 @@ C:/laragon/www/GreenCommerce/src
 C:/laragon/www/busca archivos
 C:/laragon/www/intranet-frontend/src/app
 C:/laragon/www/intranet-frontend/src/app/viewStudent
+Pega la ruta aquí 
+C:/laragon/www/intranet-frontend/src/app/viewProfessor

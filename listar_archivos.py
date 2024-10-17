@@ -1,6 +1,6 @@
 import os
 import tkinter as tk
-from tkinter import simpledialog, ttk, filedialog
+from tkinter import ttk, filedialog
 import threading
 
 # Nombre del archivo de historial
@@ -189,6 +189,9 @@ historial_listbox = tk.Listbox(
 historial_listbox.pack(side=tk.LEFT, fill=tk.BOTH)
 
 scrollbar_historial.config(command=historial_listbox.yview)
+
+# Vincular el doble clic en un elemento del historial a la función seleccionar_historial
+historial_listbox.bind("<Double-1>", seleccionar_historial)
 
 # Etiqueta para la notificación temporal
 notificacion_label = tk.Label(root, text="", fg="green")
