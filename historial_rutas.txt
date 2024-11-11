@@ -15,3 +15,4 @@ C:/laragon/www/intranet-frontend/src/app/viewStudent
 Pega la ruta aquí
 C:/laragon/www/intranet-frontend/src/app/viewProfessor
 C:/laragon/www/intranet-backend/microservicios/note-service
+C:/laragon/www/intranet-backend

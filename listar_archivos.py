@@ -49,16 +49,29 @@ def escribir_historial():
 def obtener_archivos_en_hilo(ruta):
     def obtener_archivos():
         archivos = []
+        carpetas_omitidas = {
+            "node_modules",
+            ".git",
+            "build",
+            "dist",
+            "venv",
+        }  # Agregar otras carpetas relacionadas
         try:
             for dirpath, dirnames, filenames in os.walk(ruta):
-                # Verifica si la carpeta actual es "node_modules"
-                if "node_modules" in dirnames:
-                    archivos.append(os.path.join(dirpath, "node_modules"))
-                    # Opcionalmente, puedes eliminar "node_modules" de dirnames para no recorrer su contenido
-                    dirnames.remove("node_modules")
-                # Agrega los archivos encontrados
+                # Remover carpetas especificas para no listar su contenido
+                for carpeta in carpetas_omitidas:
+                    if carpeta in dirnames:
+                        archivos.append(
+                            os.path.join(dirpath, carpeta)
+                        )  # Agrega solo el nombre de la carpeta
+                        dirnames.remove(
+                            carpeta
+                        )  # Evita recorrer el contenido de esta carpeta
+
+                # Agrega los archivos encontrados en directorios no omitidos
                 for filename in filenames:
                     archivos.append(os.path.join(dirpath, filename))
+
         except Exception as e:
             print(f"Error al acceder al directorio: {e}")
         mostrar_archivos(archivos)  # Actualizar la lista de archivos en la interfaz
