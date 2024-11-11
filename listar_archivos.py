@@ -50,7 +50,13 @@ def obtener_archivos_en_hilo(ruta):
     def obtener_archivos():
         archivos = []
         try:
-            for dirpath, _, filenames in os.walk(ruta):
+            for dirpath, dirnames, filenames in os.walk(ruta):
+                # Verifica si la carpeta actual es "node_modules"
+                if "node_modules" in dirnames:
+                    archivos.append(os.path.join(dirpath, "node_modules"))
+                    # Opcionalmente, puedes eliminar "node_modules" de dirnames para no recorrer su contenido
+                    dirnames.remove("node_modules")
+                # Agrega los archivos encontrados
                 for filename in filenames:
                     archivos.append(os.path.join(dirpath, filename))
         except Exception as e:
