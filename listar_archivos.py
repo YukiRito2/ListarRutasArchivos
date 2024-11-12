@@ -175,7 +175,7 @@ def seleccionar_historial(event):
         obtener_archivos_en_hilo(ruta)
 
 
-# Función para generar y copiar el prompt al portapapeles
+# Función para generar y copiar el prompt al portapapeles con contexto de múltiples microservicios y ruta específica de cada archivo
 def generar_prompt():
     rutas = archivos_listbox.get(0, tk.END)
     contenido_prompt = "Rutas del proyecto:\n\n" + "\n".join(rutas) + "\n\n"
@@ -195,9 +195,12 @@ def generar_prompt():
                 try:
                     with open(ruta, "r") as file:
                         contenido = file.read()
-                        contenido_prompt += (
-                            f"Este es el contenido de {archivo}:\n{contenido}\n\n"
-                        )
+                        # Determinar el contexto del archivo según su ubicación en la estructura de carpetas
+                        nombre_servicio = os.path.basename(
+                            os.path.dirname(ruta)
+                        )  # Carpeta inmediata
+                        contexto = f"{archivo} en el servicio '{nombre_servicio}'"
+                        contenido_prompt += f"Este es el contenido de {contexto}:\n{ruta}\n\n{contenido}\n\n"
                 except Exception as e:
                     print(f"No se pudo leer {archivo}: {e}")
 
