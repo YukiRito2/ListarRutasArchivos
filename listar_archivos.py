@@ -2,6 +2,7 @@ import os
 import tkinter as tk
 from tkinter import ttk, filedialog
 import threading
+import json
 
 # Nombre del archivo de historial
 HISTORIAL_FILE = "historial_rutas.txt"
@@ -178,7 +179,9 @@ def seleccionar_historial(event):
 # Función para generar y copiar el prompt al portapapeles con contexto de múltiples microservicios y ruta específica de cada archivo
 def generar_prompt():
     rutas = archivos_listbox.get(0, tk.END)
-    contenido_prompt = "Rutas del proyecto:\n\n" + "\n".join(rutas) + "\n\n"
+    contenido_prompt = (
+        "Estructura General del Proyecto:\n\n" + "\n".join(rutas) + "\n\n"
+    )
     archivos_clave = [
         "package.json",
         "Dockerfile",
@@ -188,6 +191,8 @@ def generar_prompt():
         ".eslintrc",
         ".prettierrc",
     ]
+    dependencias_clave = []
+    configuraciones = []
 
     for ruta in rutas:
         for archivo in archivos_clave:
@@ -201,8 +206,33 @@ def generar_prompt():
                         )  # Carpeta inmediata
                         contexto = f"{archivo} en el servicio '{nombre_servicio}'"
                         contenido_prompt += f"Este es el contenido de {contexto}:\n{ruta}\n\n{contenido}\n\n"
+
+                        # Extraer dependencias clave del package.json y configuraciones de .env y docker-compose
+                        if archivo == "package.json":
+                            paquete_json = json.loads(contenido)
+                            dependencias = paquete_json.get("dependencies", {})
+                            dev_dependencias = paquete_json.get("devDependencies", {})
+                            dependencias_clave.extend(dependencias.keys())
+                            dependencias_clave.extend(dev_dependencias.keys())
+                        elif archivo == "docker-compose.yml" or archivo == ".env":
+                            configuraciones.append(contenido)
+
                 except Exception as e:
                     print(f"No se pudo leer {archivo}: {e}")
+
+    # Sección de Dependencias Clave
+    if dependencias_clave:
+        contenido_prompt += (
+            "\nDependencias Clave del Proyecto:\n"
+            + ", ".join(dependencias_clave)
+            + "\n\n"
+        )
+
+    # Sección de Notas sobre Configuración y Entorno
+    if configuraciones:
+        contenido_prompt += "Notas sobre Configuración y Entorno:\n"
+        for config in configuraciones:
+            contenido_prompt += config + "\n"
 
     root.clipboard_clear()
     root.clipboard_append(contenido_prompt)
