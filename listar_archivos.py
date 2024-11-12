@@ -175,6 +175,37 @@ def seleccionar_historial(event):
         obtener_archivos_en_hilo(ruta)
 
 
+# Función para generar y copiar el prompt al portapapeles
+def generar_prompt():
+    rutas = archivos_listbox.get(0, tk.END)
+    contenido_prompt = "Rutas del proyecto:\n\n" + "\n".join(rutas) + "\n\n"
+    archivos_clave = [
+        "package.json",
+        "Dockerfile",
+        "docker-compose.yml",
+        ".env",
+        "tsconfig.json",
+        ".eslintrc",
+        ".prettierrc",
+    ]
+
+    for ruta in rutas:
+        for archivo in archivos_clave:
+            if ruta.endswith(archivo):
+                try:
+                    with open(ruta, "r") as file:
+                        contenido = file.read()
+                        contenido_prompt += (
+                            f"Este es el contenido de {archivo}:\n{contenido}\n\n"
+                        )
+                except Exception as e:
+                    print(f"No se pudo leer {archivo}: {e}")
+
+    root.clipboard_clear()
+    root.clipboard_append(contenido_prompt)
+    mostrar_notificacion("Prompt generado y copiado al portapapeles")
+
+
 # Crear los widgets sin estilos adicionales para los botones
 frame_botones = tk.Frame(root)
 frame_botones.pack(pady=10)
@@ -186,6 +217,11 @@ buscar_button.pack(side=tk.LEFT, padx=5)
 
 copiar_button = tk.Button(frame_botones, text="Copiar Rutas", command=copiar_rutas)
 copiar_button.pack(side=tk.LEFT, padx=5)
+
+generar_prompt_button = tk.Button(
+    frame_botones, text="Generar Prompt", command=generar_prompt
+)
+generar_prompt_button.pack(side=tk.LEFT, padx=5)
 
 archivos_listbox = tk.Listbox(root, width=80, height=10)
 archivos_listbox.pack(pady=10)

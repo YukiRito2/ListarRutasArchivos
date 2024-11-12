@@ -1,1 +1,19 @@
 C:/laragon/www/intranet-backend/microservicios/note-service
+C:/laragon/www/intranet-backend/microservicios/note-service\dist
+C:/laragon/www/intranet-backend/microservicios/note-service\node_modules
+C:/laragon/www/intranet-backend/microservicios/note-service\.env
+C:/laragon/www/intranet-backend/microservicios/note-service\.gitignore
+C:/laragon/www/intranet-backend/microservicios/note-service\Dockerfile
+C:/laragon/www/intranet-backend/microservicios/note-service\package-lock.json
+C:/laragon/www/intranet-backend/microservicios/note-service\package.json
+C:/laragon/www/intranet-backend/microservicios/note-service\tsconfig.json
+C:/laragon/www/intranet-backend/microservicios/note-service\prisma\schema.prisma
+C:/laragon/www/intranet-backend/microservicios/note-service\src\index.ts
+C:/laragon/www/intranet-backend/microservicios/note-service\src\modules\note.controller.ts
+C:/laragon/www/intranet-backend/microservicios/note-service\src\modules\note.model.ts
+C:/laragon/www/intranet-backend/microservicios/note-service\src\modules\note.routes.ts
+C:/laragon/www/intranet-backend/microservicios/note-service\src\modules\note.service.ts
+C:/laragon/www/intranet-backend/microservicios/note-service\src\utils\ioredis.d.ts
+C:/laragon/www/intranet-backend/microservicios/note-service\src\utils\middleware .ts
+C:/laragon/www/intranet-backend
+C:/laragon/www/intranet-backend
