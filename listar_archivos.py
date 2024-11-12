@@ -197,7 +197,6 @@ def generar_prompt():
         ".prettierrc",
     ]
     dependencias_clave = []
-    configuraciones = []
     rutas_api = []
     scripts_importantes = []
 
@@ -214,7 +213,7 @@ def generar_prompt():
                         contexto = f"{archivo} en el servicio '{nombre_servicio}'"
                         contenido_prompt += f"Este es el contenido de {contexto}:\n{ruta}\n\n{contenido}\n\n"
 
-                        # Extraer dependencias clave del package.json y configuraciones de .env y docker-compose
+                        # Extraer dependencias clave del package.json
                         if archivo == "package.json":
                             paquete_json = json.loads(contenido)
                             dependencias = paquete_json.get("dependencies", {})
@@ -228,8 +227,6 @@ def generar_prompt():
                                 for k, v in scripts.items()
                                 if k in ["start", "build", "test"]
                             }
-                        elif archivo == "docker-compose.yml" or archivo == ".env":
-                            configuraciones.append(contenido)
 
                         # Documentación de rutas en archivos routes.ts o controller
                         if archivo.endswith((".ts", ".js")) and (
@@ -265,12 +262,6 @@ def generar_prompt():
         for ruta in rutas_api:
             contenido_prompt += f"{ruta}\n"
         contenido_prompt += "\n"
-
-    # Sección de Notas sobre Configuración y Entorno
-    if configuraciones:
-        contenido_prompt += "Notas sobre Configuración y Entorno:\n"
-        for config in configuraciones:
-            contenido_prompt += config + "\n"
 
     root.clipboard_clear()
     root.clipboard_append(contenido_prompt)
