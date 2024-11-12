@@ -1,8 +1,8 @@
 import os
 import tkinter as tk
 from tkinter import ttk, filedialog
-import threading
 import json
+import re
 
 # Nombre del archivo de historial
 HISTORIAL_FILE = "historial_rutas.txt"
@@ -46,39 +46,35 @@ def escribir_historial():
             f.write(ruta + "\n")
 
 
-# Función para obtener todos los archivos en un directorio y subdirectorios (en un hilo separado)
-def obtener_archivos_en_hilo(ruta):
-    def obtener_archivos():
-        archivos = []
-        carpetas_omitidas = {
-            "node_modules",
-            ".git",
-            "build",
-            "dist",
-            "venv",
-        }  # Agregar otras carpetas relacionadas
-        try:
-            for dirpath, dirnames, filenames in os.walk(ruta):
-                # Remover carpetas especificas para no listar su contenido
-                for carpeta in carpetas_omitidas:
-                    if carpeta in dirnames:
-                        archivos.append(
-                            os.path.join(dirpath, carpeta)
-                        )  # Agrega solo el nombre de la carpeta
-                        dirnames.remove(
-                            carpeta
-                        )  # Evita recorrer el contenido de esta carpeta
+# Función para obtener todos los archivos en un directorio y subdirectorios
+def obtener_archivos(ruta):
+    archivos = []
+    carpetas_omitidas = {
+        "node_modules",
+        ".git",
+        "build",
+        "dist",
+        "venv",
+    }  # Agregar otras carpetas relacionadas
+    try:
+        for dirpath, dirnames, filenames in os.walk(ruta):
+            # Remover carpetas especificas para no listar su contenido
+            for carpeta in carpetas_omitidas:
+                if carpeta in dirnames:
+                    archivos.append(
+                        os.path.join(dirpath, carpeta)
+                    )  # Agrega solo el nombre de la carpeta
+                    dirnames.remove(
+                        carpeta
+                    )  # Evita recorrer el contenido de esta carpeta
 
-                # Agrega los archivos encontrados en directorios no omitidos
-                for filename in filenames:
-                    archivos.append(os.path.join(dirpath, filename))
+            # Agrega los archivos encontrados en directorios no omitidos
+            for filename in filenames:
+                archivos.append(os.path.join(dirpath, filename))
 
-        except Exception as e:
-            print(f"Error al acceder al directorio: {e}")
-        mostrar_archivos(archivos)  # Actualizar la lista de archivos en la interfaz
-
-    # Crear y empezar el hilo para obtener los archivos
-    threading.Thread(target=obtener_archivos).start()
+    except Exception as e:
+        print(f"Error al acceder al directorio: {e}")
+    mostrar_archivos(archivos)  # Actualizar la lista de archivos en la interfaz
 
 
 # Función para mostrar archivos en la lista
@@ -92,7 +88,7 @@ def mostrar_archivos(archivos):
 def seleccionar_carpeta_y_buscar():
     carpeta = filedialog.askdirectory(title="Seleccionar Carpeta")
     if carpeta:
-        obtener_archivos_en_hilo(carpeta)
+        obtener_archivos(carpeta)
         if carpeta not in historial:
             historial.append(carpeta)
             historial_listbox.insert(tk.END, carpeta)  # Agregar la carpeta al historial
@@ -135,7 +131,7 @@ def ventana_buscar_ruta():
     def confirmar_ruta():
         ruta = ruta_entry.get()
         if ruta and ruta != "Escribe la ruta aquí":
-            obtener_archivos_en_hilo(ruta)
+            obtener_archivos(ruta)
             if ruta not in historial:
                 historial.append(ruta)
                 historial_listbox.insert(tk.END, ruta)  # Agregar la ruta al historial
@@ -173,14 +169,23 @@ def seleccionar_historial(event):
     seleccion = historial_listbox.curselection()
     if seleccion:
         ruta = historial_listbox.get(seleccion)
-        obtener_archivos_en_hilo(ruta)
+        obtener_archivos(ruta)
 
 
 # Función para generar y copiar el prompt al portapapeles con contexto de múltiples microservicios y ruta específica de cada archivo
 def generar_prompt():
     rutas = archivos_listbox.get(0, tk.END)
+    encabezado = (
+        "Hola, a continuación te muestro un resumen detallado de este proyecto. "
+        "Úsalo para entender su estructura y responder a mis preguntas sobre su organización y configuración. "
+        "Por favor, lee atentamente esta información, ya que te servirá como guía para ayudarme a trabajar con el proyecto. "
+        "Aquí está la estructura general del proyecto:"
+    )
     contenido_prompt = (
-        "Estructura General del Proyecto:\n\n" + "\n".join(rutas) + "\n\n"
+        encabezado
+        + "\n\nEstructura General del Proyecto:\n\n"
+        + "\n".join(rutas)
+        + "\n\n"
     )
     archivos_clave = [
         "package.json",
@@ -193,6 +198,8 @@ def generar_prompt():
     ]
     dependencias_clave = []
     configuraciones = []
+    rutas_api = []
+    scripts_importantes = []
 
     for ruta in rutas:
         for archivo in archivos_clave:
@@ -214,8 +221,25 @@ def generar_prompt():
                             dev_dependencias = paquete_json.get("devDependencies", {})
                             dependencias_clave.extend(dependencias.keys())
                             dependencias_clave.extend(dev_dependencias.keys())
+                            # Identificar scripts importantes en package.json
+                            scripts = paquete_json.get("scripts", {})
+                            scripts_importantes = {
+                                k: v
+                                for k, v in scripts.items()
+                                if k in ["start", "build", "test"]
+                            }
                         elif archivo == "docker-compose.yml" or archivo == ".env":
                             configuraciones.append(contenido)
+
+                        # Documentación de rutas en archivos routes.ts o controller
+                        if archivo.endswith((".ts", ".js")) and (
+                            "route" in archivo or "controller" in archivo
+                        ):
+                            rutas_encontradas = re.findall(
+                                r"(GET|POST|PUT|DELETE)\s+['\"](.+?)['\"]", contenido
+                            )
+                            for metodo, ruta in rutas_encontradas:
+                                rutas_api.append(f"{metodo} {ruta}")
 
                 except Exception as e:
                     print(f"No se pudo leer {archivo}: {e}")
@@ -224,9 +248,23 @@ def generar_prompt():
     if dependencias_clave:
         contenido_prompt += (
             "\nDependencias Clave del Proyecto:\n"
-            + ", ".join(dependencias_clave)
+            + ", ".join(set(dependencias_clave))
             + "\n\n"
         )
+
+    # Sección de Scripts Importantes
+    if scripts_importantes:
+        contenido_prompt += "Scripts Clave en package.json:\n"
+        for nombre, comando in scripts_importantes.items():
+            contenido_prompt += f"{nombre}: {comando}\n"
+        contenido_prompt += "\n"
+
+    # Sección de Rutas de la API
+    if rutas_api:
+        contenido_prompt += "Resumen de Rutas de la API:\n"
+        for ruta in rutas_api:
+            contenido_prompt += f"{ruta}\n"
+        contenido_prompt += "\n"
 
     # Sección de Notas sobre Configuración y Entorno
     if configuraciones:
