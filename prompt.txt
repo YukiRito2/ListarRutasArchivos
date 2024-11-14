@@ -1,0 +1,870 @@
+Hola, a continuación te muestro un resumen detallado del proyecto. Úsalo para entender su estructura y responder a mis preguntas sobre su organización y configuración. Aquí está la estructura general del proyecto:
+
+## Estructura General del Proyecto:
+
+C:/laragon/www/intranet-backend\.git
+C:/laragon/www/intranet-backend\docker-compose.yml
+C:/laragon/www/intranet-backend\LICENSE
+C:/laragon/www/intranet-backend\README.md
+C:/laragon/www/intranet-backend\database\node_modules
+C:/laragon/www/intranet-backend\database\.env
+C:/laragon/www/intranet-backend\database\package-lock.json
+C:/laragon/www/intranet-backend\database\package.json
+C:/laragon/www/intranet-backend\database\schema.prisma
+C:/laragon/www/intranet-backend\database\migrations\migration_lock.toml
+C:/laragon/www/intranet-backend\database\migrations\20241029134518_init\migration.sql
+C:/laragon/www/intranet-backend\database\migrations\20241031183551_update_enum_state\migration.sql
+C:/laragon/www/intranet-backend\database\migrations\20241102143448_update_float_by_decimal\migration.sql
+C:/laragon/www/intranet-backend\database\migrations\20241102153911_add_enum_assitance_type\migration.sql
+C:/laragon/www/intranet-backend\database\migrations\20241102154558_add_enum_vacant_type\migration.sql
+C:/laragon/www/intranet-backend\database\migrations\20241102161413_update_type_by_type_classroom_on_classroom\migration.sql
+C:/laragon/www/intranet-backend\database\migrations\20241112005546_add_db_date_time\migration.sql
+C:/laragon/www/intranet-backend\database\migrations\20241112181049_init\migration.sql
+C:/laragon/www/intranet-backend\microservicios\auth-service\node_modules
+C:/laragon/www/intranet-backend\microservicios\auth-service\.env
+C:/laragon/www/intranet-backend\microservicios\auth-service\.gitignore
+C:/laragon/www/intranet-backend\microservicios\auth-service\Dockerfile
+C:/laragon/www/intranet-backend\microservicios\auth-service\package-lock.json
+C:/laragon/www/intranet-backend\microservicios\auth-service\package.json
+C:/laragon/www/intranet-backend\microservicios\auth-service\tsconfig.json
+C:/laragon/www/intranet-backend\microservicios\auth-service\prisma\schema.prisma
+C:/laragon/www/intranet-backend\microservicios\auth-service\src\index.ts
+C:/laragon/www/intranet-backend\microservicios\auth-service\src\utils\ioredis.d.ts
+C:/laragon/www/intranet-backend\microservicios\career-service\node_modules
+C:/laragon/www/intranet-backend\microservicios\career-service\.env
+C:/laragon/www/intranet-backend\microservicios\career-service\.gitignore
+C:/laragon/www/intranet-backend\microservicios\career-service\Dockerfile
+C:/laragon/www/intranet-backend\microservicios\career-service\package-lock.json
+C:/laragon/www/intranet-backend\microservicios\career-service\package.json
+C:/laragon/www/intranet-backend\microservicios\career-service\tsconfig.json
+C:/laragon/www/intranet-backend\microservicios\career-service\prisma\schema.prisma
+C:/laragon/www/intranet-backend\microservicios\career-service\src\index.ts
+C:/laragon/www/intranet-backend\microservicios\career-service\src\modules\career.controller.ts
+C:/laragon/www/intranet-backend\microservicios\career-service\src\modules\career.model.ts
+C:/laragon/www/intranet-backend\microservicios\career-service\src\modules\career.routes.ts
+C:/laragon/www/intranet-backend\microservicios\career-service\src\modules\career.service.ts
+C:/laragon/www/intranet-backend\microservicios\career-service\src\utils\ioredis.d.ts
+C:/laragon/www/intranet-backend\microservicios\career-service\src\utils\middleware .ts
+C:/laragon/www/intranet-backend\microservicios\career-service\src\utils\prismaClient.ts
+C:/laragon/www/intranet-backend\microservicios\classroom-service\node_modules
+C:/laragon/www/intranet-backend\microservicios\classroom-service\.gitignore
+C:/laragon/www/intranet-backend\microservicios\classroom-service\Dockerfile
+C:/laragon/www/intranet-backend\microservicios\classroom-service\package-lock.json
+C:/laragon/www/intranet-backend\microservicios\classroom-service\package.json
+C:/laragon/www/intranet-backend\microservicios\classroom-service\tsconfig.json
+C:/laragon/www/intranet-backend\microservicios\classroom-service\prisma\schema.prisma
+C:/laragon/www/intranet-backend\microservicios\classroom-service\src\index.ts
+C:/laragon/www/intranet-backend\microservicios\classroom-service\src\modules\classroom.controller.ts
+C:/laragon/www/intranet-backend\microservicios\classroom-service\src\modules\classroom.model.ts
+C:/laragon/www/intranet-backend\microservicios\classroom-service\src\modules\classroom.routes.ts
+C:/laragon/www/intranet-backend\microservicios\classroom-service\src\modules\classroom.service.ts
+C:/laragon/www/intranet-backend\microservicios\classroom-service\src\utils\ioredis.d.ts
+C:/laragon/www/intranet-backend\microservicios\classroom-service\src\utils\middleware .ts
+C:/laragon/www/intranet-backend\microservicios\classroom-service\src\utils\prismaClient.ts
+C:/laragon/www/intranet-backend\microservicios\course-service\node_modules
+C:/laragon/www/intranet-backend\microservicios\course-service\dist
+C:/laragon/www/intranet-backend\microservicios\course-service\.env
+C:/laragon/www/intranet-backend\microservicios\course-service\.gitignore
+C:/laragon/www/intranet-backend\microservicios\course-service\Dockerfile
+C:/laragon/www/intranet-backend\microservicios\course-service\package-lock.json
+C:/laragon/www/intranet-backend\microservicios\course-service\package.json
+C:/laragon/www/intranet-backend\microservicios\course-service\tsconfig.json
+C:/laragon/www/intranet-backend\microservicios\course-service\prisma\schema.prisma
+C:/laragon/www/intranet-backend\microservicios\course-service\src\index.ts
+C:/laragon/www/intranet-backend\microservicios\course-service\src\modules\course.controller.ts
+C:/laragon/www/intranet-backend\microservicios\course-service\src\modules\course.model.ts
+C:/laragon/www/intranet-backend\microservicios\course-service\src\modules\course.routes.ts
+C:/laragon/www/intranet-backend\microservicios\course-service\src\modules\course.schema.ts
+C:/laragon/www/intranet-backend\microservicios\course-service\src\modules\course.service.ts
+C:/laragon/www/intranet-backend\microservicios\course-service\src\utils\ioredis.d.ts
+C:/laragon/www/intranet-backend\microservicios\course-service\src\utils\middleware .ts
+C:/laragon/www/intranet-backend\microservicios\course-service\src\utils\prismaClient.ts
+C:/laragon/www/intranet-backend\microservicios\event-service\node_modules
+C:/laragon/www/intranet-backend\microservicios\event-service\dist
+C:/laragon/www/intranet-backend\microservicios\event-service\.env
+C:/laragon/www/intranet-backend\microservicios\event-service\.gitignore
+C:/laragon/www/intranet-backend\microservicios\event-service\Dockerfile
+C:/laragon/www/intranet-backend\microservicios\event-service\package-lock.json
+C:/laragon/www/intranet-backend\microservicios\event-service\package.json
+C:/laragon/www/intranet-backend\microservicios\event-service\tsconfig.json
+C:/laragon/www/intranet-backend\microservicios\event-service\prisma\schema.prisma
+C:/laragon/www/intranet-backend\microservicios\event-service\src\index.ts
+C:/laragon/www/intranet-backend\microservicios\event-service\src\modules\envent.service.ts
+C:/laragon/www/intranet-backend\microservicios\event-service\src\modules\event.controller.ts
+C:/laragon/www/intranet-backend\microservicios\event-service\src\modules\event.model.ts
+C:/laragon/www/intranet-backend\microservicios\event-service\src\modules\event.routes.ts
+C:/laragon/www/intranet-backend\microservicios\event-service\src\modules\event.schema.ts
+C:/laragon/www/intranet-backend\microservicios\event-service\src\utils\ioredis.d.ts
+C:/laragon/www/intranet-backend\microservicios\event-service\src\utils\middleware .ts
+C:/laragon/www/intranet-backend\microservicios\event-service\src\utils\prismaClient.ts
+C:/laragon/www/intranet-backend\microservicios\note-service\node_modules
+C:/laragon/www/intranet-backend\microservicios\note-service\dist
+C:/laragon/www/intranet-backend\microservicios\note-service\.env
+C:/laragon/www/intranet-backend\microservicios\note-service\.gitignore
+C:/laragon/www/intranet-backend\microservicios\note-service\Dockerfile
+C:/laragon/www/intranet-backend\microservicios\note-service\package-lock.json
+C:/laragon/www/intranet-backend\microservicios\note-service\package.json
+C:/laragon/www/intranet-backend\microservicios\note-service\tsconfig.json
+C:/laragon/www/intranet-backend\microservicios\note-service\prisma\schema.prisma
+C:/laragon/www/intranet-backend\microservicios\note-service\src\index.ts
+C:/laragon/www/intranet-backend\microservicios\note-service\src\modules\note.controller.ts
+C:/laragon/www/intranet-backend\microservicios\note-service\src\modules\note.model.ts
+C:/laragon/www/intranet-backend\microservicios\note-service\src\modules\note.routes.ts
+C:/laragon/www/intranet-backend\microservicios\note-service\src\modules\note.service.ts
+C:/laragon/www/intranet-backend\microservicios\note-service\src\utils\ioredis.d.ts
+C:/laragon/www/intranet-backend\microservicios\note-service\src\utils\middleware .ts
+C:/laragon/www/intranet-backend\microservicios\note-service\src\utils\prismaClient.ts
+
+### Contenido de docker-compose.yml en el servicio 'intranet-backend':
+C:/laragon/www/intranet-backend\docker-compose.yml
+
+```
+services:
+  mysql_intranet:
+    image: mysql:8.0
+    environment:
+      MYSQL_ROOT_PASSWORD: 123456
+      MYSQL_DATABASE: intranet_db
+    volumes:
+      - db_data:/var/lib/mysql
+    networks:
+      - intranet_network
+    ports:
+      - "3306:3306"
+  
+  redis:
+    image: redis:latest
+    networks:
+      - intranet_network
+  
+  auth-services:
+    build: ./microservicios/auth-service
+    environment:
+      DATABASE_URL: mysql://root:123456@mysql_intranet:3306/intranet_db
+      REDIS_URL: redis://redis:6379
+    ports:
+      - "3000:3000"
+    depends_on:
+      - mysql_intranet
+      - redis
+    networks:
+      - intranet_network
+      
+  course-services:
+    build: ./microservicios/course-service
+    environment:
+      DATABASE_URL: mysql://root:123456@mysql_intranet:3306/intranet_db
+      REDIS_URL: redis://redis:6379
+    ports:
+      - "3001:3001"
+    depends_on:
+      - mysql_intranet
+      - redis
+    networks:
+      - intranet_network
+  
+  note-services:
+    build: ./microservicios/note-service
+    environment:
+      DATABASE_URL: mysql://root:123456@mysql_intranet:3306/intranet_db
+      REDIS_URL: redis://redis:6379
+    ports:
+      - "3002:3002"
+    depends_on:
+      - mysql_intranet
+      - redis
+    networks:
+      - intranet_network
+  
+  career-services:
+    build: ./microservicios/career-service
+    environment:
+      DATABASE_URL: mysql://root:123456@mysql_intranet:3306/intranet_db
+      REDIS_URL: redis://redis:6379
+    ports:
+      - "3003:3003"
+    depends_on:
+      - mysql_intranet
+      - redis
+    networks:
+      - intranet_network
+
+  classroom-services:
+    build: ./microservicios/classroom-service
+    environment:
+      DATABASE_URL: mysql://root:123456@mysql_intranet:3306/intranet_db
+      REDIS_URL: redis://redis:6379
+    ports:
+      - "3004:3004"
+    depends_on:
+      - mysql_intranet
+      - redis
+    networks:
+      - intranet_network
+
+  event-services:
+    build: ./microservicios/event-service
+    environment:
+      DATABASE_URL: mysql://root:123456@mysql_intranet:3306/intranet_db
+      REDIS_URL: redis://redis:6379
+    ports:
+      - "3005:3005"
+    depends_on:
+      - mysql_intranet
+      - redis
+    networks:
+      - intranet_network
+
+networks:
+  intranet_network:
+
+volumes:
+  db_data:
+  redis_data:
+```
+
+### Contenido de .env en el servicio 'database':
+C:/laragon/www/intranet-backend\database\.env
+
+```
+DATABASE_URL=mysql://root:123456@localhost:3306/intranet_db
+REDIS_URL=redis://redis:6379
+```
+
+### Contenido de package.json en el servicio 'database':
+C:/laragon/www/intranet-backend\database\package.json
+
+```
+{
+    "devDependencies": {
+        "prisma": "^5.21.1"
+    },
+    "dependencies": {
+        "@prisma/client": "^5.21.1"
+    }
+}
+
+```
+
+### Contenido de .env en el servicio 'auth-service':
+C:/laragon/www/intranet-backend\microservicios\auth-service\.env
+
+```
+DATABASE_URL="mysql://root:123456@mysql_intranet:3306/intranet_db"
+REDIS_URL="redis://redis:6379"
+```
+
+### Contenido de Dockerfile en el servicio 'auth-service':
+C:/laragon/www/intranet-backend\microservicios\auth-service\Dockerfile
+
+```
+# Selecciona la imagen base de Node.js
+FROM node:18
+
+# Establece el directorio de trabajo en el contenedor
+WORKDIR /app
+
+# Copia los archivos de configuraciÃ³n de paquetes
+COPY package*.json tsconfig.json ./
+
+# Instala las dependencias
+RUN npm install
+
+# Copia el cÃ³digo fuente y la configuraciÃ³n de Prisma
+COPY . .
+
+# Genera el cliente de Prisma
+RUN npx prisma generate
+
+# Compila el cÃ³digo TypeScript a JavaScript
+RUN npm run build
+
+# Expone el puerto en el que corre el microservicio
+EXPOSE 3000
+
+# Comando para iniciar la aplicaciÃ³n
+CMD ["node", "dist/index.js"]
+
+```
+
+### Contenido de package.json en el servicio 'auth-service':
+C:/laragon/www/intranet-backend\microservicios\auth-service\package.json
+
+```
+{
+    "name": "auth-service",
+    "version": "1.0.0",
+    "main": "index.js",
+    "scripts": {
+        "start": "node dist/index.js",
+        "dev": "ts-node src/index.ts",
+        "build": "tsc"
+    },
+    "dependencies": {
+        "@prisma/client": "^5.22.0",
+        "express": "^4.21.1",
+        "ioredis": "^5.4.1"
+    },
+    "devDependencies": {
+        "@types/express": "^5.0.0",
+        "@types/ioredis": "^5.0.0",
+        "@types/node": "^22.8.1",
+        "prisma": "^5.22.0",
+        "ts-node": "^10.9.2",
+        "typescript": "^5.6.3"
+    }
+}
+
+```
+
+### Contenido de tsconfig.json en el servicio 'auth-service':
+C:/laragon/www/intranet-backend\microservicios\auth-service\tsconfig.json
+
+```
+{
+  "compilerOptions": {
+    "target": "ES2020",
+    "module": "commonjs",
+    "lib": ["ES2020"],
+    "moduleResolution": "node",
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "resolveJsonModule": true,
+    "strict": true,
+    "strictNullChecks": true,
+    "noImplicitAny": true,
+    "noImplicitThis": true,
+    "alwaysStrict": true,
+    "skipLibCheck": true,
+    "useUnknownInCatchVariables": true,
+    "importHelpers": true,
+    "outDir": "./dist",
+    "rootDir": "./src",
+    "incremental": true
+  },
+  "include": ["src"],
+  "exclude": ["node_modules", "dist"]
+}
+```
+
+### Contenido de .env en el servicio 'career-service':
+C:/laragon/www/intranet-backend\microservicios\career-service\.env
+
+```
+DATABASE_URL="mysql://root:123456@mysql_intranet:3306/intranet_db"
+REDIS_URL="redis://redis:6379"
+PORT=3003
+```
+
+### Contenido de Dockerfile en el servicio 'career-service':
+C:/laragon/www/intranet-backend\microservicios\career-service\Dockerfile
+
+```
+# Selecciona la imagen base de Node.js
+FROM node:18
+
+# Establece el directorio de trabajo en el contenedor
+WORKDIR /app
+
+# Copia los archivos de configuraciÃ³n de paquetes
+COPY package*.json tsconfig.json ./
+
+# Instala las dependencias
+RUN npm install
+
+# Copia el cÃ³digo fuente y la configuraciÃ³n de Prisma
+COPY . .
+
+# Genera el cliente de Prisma
+RUN npx prisma generate
+
+# Compila el cÃ³digo TypeScript a JavaScript
+RUN npm run build
+
+# Expone el puerto en el que corre el microservicio
+EXPOSE 3003
+
+# Comando para iniciar la aplicaciÃ³n
+CMD ["node", "dist/index.js"]
+
+```
+
+### Contenido de package.json en el servicio 'career-service':
+C:/laragon/www/intranet-backend\microservicios\career-service\package.json
+
+```
+{
+    "name": "career-service",
+    "version": "1.0.0",
+    "description": "Microservicio career-service",
+    "main": "index.js",
+    "scripts": {
+        "build": "tsc",
+        "start": "node dist/index.ts"
+    },
+    "dependencies": {
+        "@prisma/client": "^5.22.0",
+        "dotenv": "^16.4.5",
+        "express": "^4.18.2",
+        "ioredis": "^5.4.1",
+        "mysql2": "^3.11.3",
+        "tslib": "^2.8.0"
+    },
+    "devDependencies": {
+        "@types/express": "^5.0.0",
+        "@types/node": "^22.7.9",
+        "prisma": "^5.22.0",
+        "ts-node": "^10.9.2",
+        "typescript": "^5.6.3"
+    }
+}
+
+```
+
+### Contenido de tsconfig.json en el servicio 'career-service':
+C:/laragon/www/intranet-backend\microservicios\career-service\tsconfig.json
+
+```
+{
+    "compilerOptions": {
+      "target": "ES2020",
+      "module": "commonjs",
+      "lib": ["ES2020"],
+      "moduleResolution": "node",
+      "esModuleInterop": true,
+      "allowSyntheticDefaultImports": true,
+      "resolveJsonModule": true,
+      "strict": true,
+      "strictNullChecks": true,
+      "noImplicitAny": true,
+      "noImplicitThis": true,
+      "alwaysStrict": true,
+      "skipLibCheck": true,
+      "useUnknownInCatchVariables": true,
+      "importHelpers": true,
+      "outDir": "./dist",
+      "rootDir": "./src",
+      "incremental": true
+    },
+    "include": ["src"],
+    "exclude": ["node_modules", "dist"]
+  }
+```
+
+### Contenido de Dockerfile en el servicio 'classroom-service':
+C:/laragon/www/intranet-backend\microservicios\classroom-service\Dockerfile
+
+```
+# Selecciona la imagen base de Node.js
+FROM node:18
+
+# Establece el directorio de trabajo en el contenedor
+WORKDIR /app
+
+# Copia los archivos de configuraciÃ³n de paquetes
+COPY package*.json tsconfig.json ./
+
+# Instala las dependencias
+RUN npm install
+
+# Copia el cÃ³digo fuente y la configuraciÃ³n de Prisma
+COPY . .
+
+# Genera el cliente de Prisma
+RUN npx prisma generate
+
+# Compila el cÃ³digo TypeScript a JavaScript
+RUN npm run build
+
+# Expone el puerto en el que corre el microservicio
+EXPOSE 3004
+
+# Comando para iniciar la aplicaciÃ³n
+CMD ["node", "dist/index.js"]
+
+```
+
+### Contenido de package.json en el servicio 'classroom-service':
+C:/laragon/www/intranet-backend\microservicios\classroom-service\package.json
+
+```
+{
+    "name": "classroom-service",
+    "version": "1.0.0",
+    "description": "Microservicio classroom-service",
+    "main": "index.js",
+    "scripts": {
+        "build": "tsc",
+        "start": "node dist/index.ts"
+    },
+    "dependencies": {
+        "@prisma/client": "^5.22.0",
+        "dotenv": "^16.4.5",
+        "express": "^4.18.2",
+        "ioredis": "^5.4.1",
+        "mysql2": "^3.11.3",
+        "tslib": "^2.8.0"
+    },
+    "devDependencies": {
+        "@types/express": "^5.0.0",
+        "@types/node": "^22.7.9",
+        "prisma": "^5.22.0",
+        "ts-node": "^10.9.2",
+        "typescript": "^5.6.3"
+    }
+}
+
+```
+
+### Contenido de tsconfig.json en el servicio 'classroom-service':
+C:/laragon/www/intranet-backend\microservicios\classroom-service\tsconfig.json
+
+```
+{
+  "compilerOptions": {
+    "target": "ES2020",
+    "module": "commonjs",
+    "lib": ["ES2020"],
+    "moduleResolution": "node",
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "resolveJsonModule": true,
+    "strict": true,
+    "strictNullChecks": true,
+    "noImplicitAny": true,
+    "noImplicitThis": true,
+    "alwaysStrict": true,
+    "skipLibCheck": true,
+    "useUnknownInCatchVariables": true,
+    "importHelpers": true,
+    "outDir": "./dist",
+    "rootDir": "./src",
+    "incremental": true
+  },
+  "include": ["src"],
+  "exclude": ["node_modules", "dist"]
+}
+```
+
+### Contenido de .env en el servicio 'course-service':
+C:/laragon/www/intranet-backend\microservicios\course-service\.env
+
+```
+DATABASE_URL="mysql://root:123456@mysql_intranet:3306/intranet_db"
+REDIS_URL="redis://redis:6379"
+PORT=3001
+```
+
+### Contenido de Dockerfile en el servicio 'course-service':
+C:/laragon/www/intranet-backend\microservicios\course-service\Dockerfile
+
+```
+# Selecciona la imagen base de Node.js
+FROM node:18
+
+# Establece el directorio de trabajo en el contenedor
+WORKDIR /app
+
+# Copia los archivos de configuraciÃ³n de paquetes
+COPY package*.json tsconfig.json ./
+
+# Instala las dependencias
+RUN npm install
+
+# Copia el cÃ³digo fuente y la configuraciÃ³n de Prisma
+COPY . .
+
+# Genera el cliente de Prisma
+RUN npx prisma generate
+
+# Compila el cÃ³digo TypeScript a JavaScript
+RUN npm run build
+
+# Expone el puerto en el que corre el microservicio
+EXPOSE 3001
+
+# Comando para iniciar la aplicaciÃ³n
+CMD ["node", "dist/index.js"]
+
+```
+
+### Contenido de package.json en el servicio 'course-service':
+C:/laragon/www/intranet-backend\microservicios\course-service\package.json
+
+```
+{
+    "name": "course-service",
+    "version": "1.0.0",
+    "description": "Microservicio course-service",
+    "main": "index.js",
+    "scripts": {
+        "build": "tsc",
+        "start": "node dist/index.ts"
+    },
+    "dependencies": {
+        "@prisma/client": "^5.22.0",
+        "dotenv": "^16.4.5",
+        "express": "^4.18.2",
+        "ioredis": "^5.4.1",
+        "mysql2": "^3.11.3",
+        "tslib": "^2.8.0",
+        "zod": "^3.23.8"
+    },
+    "devDependencies": {
+        "@types/express": "^5.0.0",
+        "@types/node": "^22.7.9",
+        "prisma": "^5.22.0",
+        "ts-node": "^10.9.2",
+        "typescript": "^5.6.3"
+    }
+}
+
+```
+
+### Contenido de tsconfig.json en el servicio 'course-service':
+C:/laragon/www/intranet-backend\microservicios\course-service\tsconfig.json
+
+```
+{
+  "compilerOptions": {
+    "target": "ES2020",
+    "module": "commonjs",
+    "lib": ["ES2020"],
+    "moduleResolution": "node",
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "resolveJsonModule": true,
+    "strict": true,
+    "strictNullChecks": true,
+    "noImplicitAny": true,
+    "noImplicitThis": true,
+    "alwaysStrict": true,
+    "skipLibCheck": true,
+    "useUnknownInCatchVariables": true,
+    "importHelpers": true,
+    "outDir": "./dist",
+    "rootDir": "./src",
+    "incremental": true
+  },
+  "include": ["src"],
+  "exclude": ["node_modules", "dist"]
+}
+```
+
+### Contenido de .env en el servicio 'event-service':
+C:/laragon/www/intranet-backend\microservicios\event-service\.env
+
+```
+DATABASE_URL="mysql://root:123456@mysql_intranet:3306/intranet_db"
+REDIS_URL="redis://redis:6379"
+PORT=3005
+```
+
+### Contenido de Dockerfile en el servicio 'event-service':
+C:/laragon/www/intranet-backend\microservicios\event-service\Dockerfile
+
+```
+# Selecciona la imagen base de Node.js
+FROM node:18
+
+# Establece el directorio de trabajo en el contenedor
+WORKDIR /app
+
+# Copia los archivos de configuraciÃ³n de paquetes
+COPY package*.json tsconfig.json ./
+
+# Instala las dependencias
+RUN npm install
+
+# Copia el cÃ³digo fuente y la configuraciÃ³n de Prisma
+COPY . .
+
+# Genera el cliente de Prisma
+RUN npx prisma generate
+
+# Compila el cÃ³digo TypeScript a JavaScript
+RUN npm run build
+
+# Expone el puerto en el que corre el microservicio
+EXPOSE 3001
+
+# Comando para iniciar la aplicaciÃ³n
+CMD ["node", "dist/index.js"]
+
+```
+
+### Contenido de package.json en el servicio 'event-service':
+C:/laragon/www/intranet-backend\microservicios\event-service\package.json
+
+```
+{
+    "name": "course-service",
+    "version": "1.0.0",
+    "description": "Microservicio course-service",
+    "main": "index.js",
+    "scripts": {
+        "build": "tsc",
+        "start": "node dist/index.ts"
+    },
+    "dependencies": {
+        "@prisma/client": "^5.22.0",
+        "dotenv": "^16.4.5",
+        "express": "^4.18.2",
+        "ioredis": "^5.4.1",
+        "mysql2": "^3.11.3",
+        "tslib": "^2.8.0",
+        "zod": "^3.23.8"
+    },
+    "devDependencies": {
+        "@types/express": "^5.0.0",
+        "@types/node": "^22.7.9",
+        "prisma": "^5.22.0",
+        "ts-node": "^10.9.2",
+        "typescript": "^5.6.3"
+    }
+}
+
+```
+
+### Contenido de tsconfig.json en el servicio 'event-service':
+C:/laragon/www/intranet-backend\microservicios\event-service\tsconfig.json
+
+```
+{
+    "compilerOptions": {
+      "target": "ES2020",
+      "module": "commonjs",
+      "lib": ["ES2020"],
+      "moduleResolution": "node",
+      "esModuleInterop": true,
+      "allowSyntheticDefaultImports": true,
+      "resolveJsonModule": true,
+      "strict": true,
+      "strictNullChecks": true,
+      "noImplicitAny": true,
+      "noImplicitThis": true,
+      "alwaysStrict": true,
+      "skipLibCheck": true,
+      "useUnknownInCatchVariables": true,
+      "importHelpers": true,
+      "outDir": "./dist",
+      "rootDir": "./src",
+      "incremental": true
+    },
+    "include": ["src"],
+    "exclude": ["node_modules", "dist"]
+  }
+```
+
+### Contenido de .env en el servicio 'note-service':
+C:/laragon/www/intranet-backend\microservicios\note-service\.env
+
+```
+DATABASE_URL="mysql://root:123456@mysql_intranet:3306/intranet_db"
+REDIS_URL="redis://redis:6379"
+PORT=3002
+```
+
+### Contenido de Dockerfile en el servicio 'note-service':
+C:/laragon/www/intranet-backend\microservicios\note-service\Dockerfile
+
+```
+# Selecciona la imagen base de Node.js
+FROM node:18
+
+# Establece el directorio de trabajo en el contenedor
+WORKDIR /app
+
+# Copia los archivos de configuraciÃ³n de paquetes
+COPY package*.json tsconfig.json ./
+
+# Instala las dependencias
+RUN npm install
+
+# Copia el cÃ³digo fuente y la configuraciÃ³n de Prisma
+COPY . .
+
+# Genera el cliente de Prisma
+RUN npx prisma generate
+
+# Compila el cÃ³digo TypeScript a JavaScript
+RUN npm run build
+
+# Expone el puerto en el que corre el microservicio
+EXPOSE 3002
+
+# Comando para iniciar la aplicaciÃ³n
+CMD ["node", "dist/index.js"]
+
+```
+
+### Contenido de package.json en el servicio 'note-service':
+C:/laragon/www/intranet-backend\microservicios\note-service\package.json
+
+```
+{
+    "name": "note-service",
+    "version": "1.0.0",
+    "description": "Microservicio note-service",
+    "main": "index.js",
+    "scripts": {
+        "build": "tsc",
+        "start": "node dist/index.ts"
+    },
+    "dependencies": {
+        "@prisma/client": "^5.22.0",
+        "dotenv": "^16.4.5",
+        "express": "^4.18.2",
+        "ioredis": "^5.4.1",
+        "mysql2": "^3.11.3",
+        "tslib": "^2.8.0"
+    },
+    "devDependencies": {
+        "@types/express": "^5.0.0",
+        "@types/node": "^22.7.9",
+        "prisma": "^5.22.0",
+        "ts-node": "^10.9.2",
+        "typescript": "^5.6.3"
+    }
+}
+
+```
+
+### Contenido de tsconfig.json en el servicio 'note-service':
+C:/laragon/www/intranet-backend\microservicios\note-service\tsconfig.json
+
+```
+{
+  "compilerOptions": {
+    "target": "ES2020",
+    "module": "commonjs",
+    "lib": ["ES2020"],
+    "moduleResolution": "node",
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "resolveJsonModule": true,
+    "strict": true,
+    "strictNullChecks": true,
+    "noImplicitAny": true,
+    "noImplicitThis": true,
+    "alwaysStrict": true,
+    "skipLibCheck": true,
+    "useUnknownInCatchVariables": true,
+    "importHelpers": true,
+    "outDir": "./dist",
+    "rootDir": "./src",
+    "incremental": true
+  },
+  "include": ["src"],
+  "exclude": ["node_modules", "dist"]
+}
+```
+
+
+## Dependencias Clave del Proyecto:
+prisma, @types/node, ts-node, zod, ioredis, dotenv, @prisma/client, mysql2, tslib, typescript, @types/ioredis, express, @types/express
+
+## Scripts Clave en package.json:
+- **build**: `tsc`
+- **start**: `node dist/index.ts`
+

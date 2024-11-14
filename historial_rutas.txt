@@ -16,3 +16,5 @@ Pega la ruta aquí
 C:/laragon/www/intranet-frontend/src/app/viewProfessor
 C:/laragon/www/intranet-backend/microservicios/note-service
 C:/laragon/www/intranet-backend
+Pega la ruta aquí
+C:/laragon/www/intranet-backend/database

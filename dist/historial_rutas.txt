@@ -17,3 +17,7 @@ C:/laragon/www/intranet-backend/microservicios/note-service\src\utils\ioredis.d.
 C:/laragon/www/intranet-backend/microservicios/note-service\src\utils\middleware .ts
 C:/laragon/www/intranet-backend
 C:/laragon/www/intranet-backend
+C:/Users/User/OneDrive/Escritorio/payment-service
+C:\laragon\www\Memorando
+C:/Users/User/OneDrive/Escritorio/memorandoAlterno
+C:\laragon\www\intranet-backend\microservicios\event-service

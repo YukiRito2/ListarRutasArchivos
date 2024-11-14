@@ -1,8 +1,8 @@
 import os
-import tkinter as tk
-from tkinter import ttk, filedialog
 import json
 import re
+import tkinter as tk
+from tkinter import ttk, filedialog
 
 # Nombre del archivo de historial
 HISTORIAL_FILE = "historial_rutas.txt"
@@ -10,7 +10,7 @@ HISTORIAL_FILE = "historial_rutas.txt"
 # Crear la ventana principal
 root = tk.Tk()
 root.title("Gestor de Rutas")
-root.geometry("600x400")
+root.geometry("700x500")
 
 
 # Función para centrar una ventana
@@ -30,10 +30,7 @@ historial = []
 
 # Función para leer el archivo de historial
 def leer_historial():
-    if not os.path.exists(HISTORIAL_FILE):
-        with open(HISTORIAL_FILE, "w") as f:
-            pass  # Crear el archivo vacío si no existe
-    else:
+    if os.path.exists(HISTORIAL_FILE):
         with open(HISTORIAL_FILE, "r") as f:
             return [line.strip() for line in f.readlines()]
     return []
@@ -49,37 +46,23 @@ def escribir_historial():
 # Función para obtener todos los archivos en un directorio y subdirectorios
 def obtener_archivos(ruta):
     archivos = []
-    carpetas_omitidas = {
-        "node_modules",
-        ".git",
-        "build",
-        "dist",
-        "venv",
-    }  # Agregar otras carpetas relacionadas
+    carpetas_omitidas = {"node_modules", ".git", "build", "dist", "venv"}
     try:
         for dirpath, dirnames, filenames in os.walk(ruta):
-            # Remover carpetas especificas para no listar su contenido
             for carpeta in carpetas_omitidas:
                 if carpeta in dirnames:
-                    archivos.append(
-                        os.path.join(dirpath, carpeta)
-                    )  # Agrega solo el nombre de la carpeta
-                    dirnames.remove(
-                        carpeta
-                    )  # Evita recorrer el contenido de esta carpeta
-
-            # Agrega los archivos encontrados en directorios no omitidos
+                    archivos.append(os.path.join(dirpath, carpeta))
+                    dirnames.remove(carpeta)
             for filename in filenames:
                 archivos.append(os.path.join(dirpath, filename))
-
     except Exception as e:
         print(f"Error al acceder al directorio: {e}")
-    mostrar_archivos(archivos)  # Actualizar la lista de archivos en la interfaz
+    mostrar_archivos(archivos)
 
 
 # Función para mostrar archivos en la lista
 def mostrar_archivos(archivos):
-    archivos_listbox.delete(0, tk.END)  # Limpiar lista actual
+    archivos_listbox.delete(0, tk.END)
     for archivo in archivos:
         archivos_listbox.insert(tk.END, archivo)
 
@@ -91,33 +74,27 @@ def seleccionar_carpeta_y_buscar():
         obtener_archivos(carpeta)
         if carpeta not in historial:
             historial.append(carpeta)
-            historial_listbox.insert(tk.END, carpeta)  # Agregar la carpeta al historial
-            escribir_historial()  # Guardar en el archivo
-        ventana.destroy()  # Cerrar la ventana de búsqueda
+            historial_listbox.insert(tk.END, carpeta)
+            escribir_historial()
+        ventana.destroy()
 
 
 # Nueva ventana para ingresar la ruta o buscar carpeta
 def ventana_buscar_ruta():
-    global ventana  # Hacer la ventana accesible dentro de la función de búsqueda automática
+    global ventana
     ventana = tk.Toplevel(root)
     ventana.title("Buscar o Seleccionar Carpeta")
     ventana.geometry("400x180")
-
-    # Centrar la ventana de búsqueda sobre la ventana principal
     centrar_ventana(ventana, 400, 180)
 
     label = tk.Label(ventana, text="Pega la ruta o selecciona una carpeta:")
     label.pack(pady=10)
 
-    # Crear un Entry con texto de sugerencia (placeholder)
     ruta_entry = tk.Entry(ventana, width=50)
     ruta_entry.insert(0, "Pega la ruta aquí ")
-    ruta_entry.bind(
-        "<FocusIn>", lambda event: ruta_entry.delete(0, tk.END)
-    )  # Borra el placeholder al hacer clic
+    ruta_entry.bind("<FocusIn>", lambda event: ruta_entry.delete(0, tk.END))
     ruta_entry.pack(pady=5)
 
-    # Crear frame para botones alineados
     frame_botones_ventana = tk.Frame(ventana)
     frame_botones_ventana.pack(pady=10)
 
@@ -134,8 +111,8 @@ def ventana_buscar_ruta():
             obtener_archivos(ruta)
             if ruta not in historial:
                 historial.append(ruta)
-                historial_listbox.insert(tk.END, ruta)  # Agregar la ruta al historial
-                escribir_historial()  # Guardar el historial en el archivo
+                historial_listbox.insert(tk.END, ruta)
+                escribir_historial()
         ventana.destroy()
 
     confirmar_button = tk.Button(
@@ -157,7 +134,7 @@ def copiar_rutas():
 def mostrar_notificacion(mensaje):
     notificacion_label.config(text=mensaje)
     notificacion_label.pack()
-    root.after(2000, ocultar_notificacion)  # Ocultar después de 2 segundos
+    root.after(2000, ocultar_notificacion)
 
 
 def ocultar_notificacion():
@@ -172,29 +149,26 @@ def seleccionar_historial(event):
         obtener_archivos(ruta)
 
 
-# Función para generar y copiar el prompt al portapapeles con contexto de múltiples microservicios y ruta específica de cada archivo
+# Función para generar y copiar el prompt al portapapeles
 def generar_prompt():
     rutas = archivos_listbox.get(0, tk.END)
     encabezado = (
-        "Hola, a continuación te muestro un resumen detallado de este proyecto. "
+        "Hola, a continuación te muestro un resumen detallado del proyecto. "
         "Úsalo para entender su estructura y responder a mis preguntas sobre su organización y configuración. "
-        "Por favor, lee atentamente esta información, ya que te servirá como guía para ayudarme a trabajar con el proyecto. "
         "Aquí está la estructura general del proyecto:"
     )
     contenido_prompt = (
-        encabezado
-        + "\n\nEstructura General del Proyecto:\n\n"
+        f"{encabezado}\n\n## Estructura General del Proyecto:\n\n"
         + "\n".join(rutas)
         + "\n\n"
     )
+
     archivos_clave = [
         "package.json",
         "Dockerfile",
         "docker-compose.yml",
         ".env",
         "tsconfig.json",
-        ".eslintrc",
-        ".prettierrc",
     ]
     dependencias_clave = []
     rutas_api = []
@@ -206,21 +180,16 @@ def generar_prompt():
                 try:
                     with open(ruta, "r") as file:
                         contenido = file.read()
-                        # Determinar el contexto del archivo según su ubicación en la estructura de carpetas
-                        nombre_servicio = os.path.basename(
-                            os.path.dirname(ruta)
-                        )  # Carpeta inmediata
+                        nombre_servicio = os.path.basename(os.path.dirname(ruta))
                         contexto = f"{archivo} en el servicio '{nombre_servicio}'"
-                        contenido_prompt += f"Este es el contenido de {contexto}:\n{ruta}\n\n{contenido}\n\n"
+                        contenido_prompt += f"### Contenido de {contexto}:\n{ruta}\n\n```\n{contenido}\n```\n\n"
 
-                        # Extraer dependencias clave del package.json
                         if archivo == "package.json":
                             paquete_json = json.loads(contenido)
                             dependencias = paquete_json.get("dependencies", {})
                             dev_dependencias = paquete_json.get("devDependencies", {})
                             dependencias_clave.extend(dependencias.keys())
                             dependencias_clave.extend(dev_dependencias.keys())
-                            # Identificar scripts importantes en package.json
                             scripts = paquete_json.get("scripts", {})
                             scripts_importantes = {
                                 k: v
@@ -228,7 +197,6 @@ def generar_prompt():
                                 if k in ["start", "build", "test"]
                             }
 
-                        # Documentación de rutas en archivos routes.ts o controller
                         if archivo.endswith((".ts", ".js")) and (
                             "route" in archivo or "controller" in archivo
                         ):
@@ -241,26 +209,23 @@ def generar_prompt():
                 except Exception as e:
                     print(f"No se pudo leer {archivo}: {e}")
 
-    # Sección de Dependencias Clave
     if dependencias_clave:
         contenido_prompt += (
-            "\nDependencias Clave del Proyecto:\n"
+            "\n## Dependencias Clave del Proyecto:\n"
             + ", ".join(set(dependencias_clave))
             + "\n\n"
         )
 
-    # Sección de Scripts Importantes
     if scripts_importantes:
-        contenido_prompt += "Scripts Clave en package.json:\n"
+        contenido_prompt += "## Scripts Clave en package.json:\n"
         for nombre, comando in scripts_importantes.items():
-            contenido_prompt += f"{nombre}: {comando}\n"
+            contenido_prompt += f"- **{nombre}**: `{comando}`\n"
         contenido_prompt += "\n"
 
-    # Sección de Rutas de la API
     if rutas_api:
-        contenido_prompt += "Resumen de Rutas de la API:\n"
+        contenido_prompt += "## Resumen de Rutas de la API:\n"
         for ruta in rutas_api:
-            contenido_prompt += f"{ruta}\n"
+            contenido_prompt += f"- {ruta}\n"
         contenido_prompt += "\n"
 
     root.clipboard_clear()
@@ -291,32 +256,24 @@ archivos_listbox.pack(pady=10)
 historial_label = ttk.Label(root, text="Historial de Rutas Buscadas")
 historial_label.pack()
 
-# Sección del historial de rutas buscadas con scrollbar
 frame_historial = tk.Frame(root)
 frame_historial.pack(pady=5)
 
-# Scrollbar para el historial
 scrollbar_historial = tk.Scrollbar(frame_historial)
 scrollbar_historial.pack(side=tk.RIGHT, fill=tk.Y)
 
-# Listbox del historial con scrollbar
 historial_listbox = tk.Listbox(
     frame_historial, width=80, height=7, yscrollcommand=scrollbar_historial.set
 )
 historial_listbox.pack(side=tk.LEFT, fill=tk.BOTH)
 
 scrollbar_historial.config(command=historial_listbox.yview)
-
-# Vincular el doble clic en un elemento del historial a la función seleccionar_historial
 historial_listbox.bind("<Double-1>", seleccionar_historial)
 
-# Etiqueta para la notificación temporal
 notificacion_label = tk.Label(root, text="", fg="green")
 
-# Cargar historial desde el archivo txt
 historial = leer_historial()
 for ruta in historial:
     historial_listbox.insert(tk.END, ruta)
 
-# Ejecutar la ventana
 root.mainloop()
