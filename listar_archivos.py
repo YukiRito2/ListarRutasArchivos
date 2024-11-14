@@ -229,8 +229,9 @@ def generar_prompt():
     mostrar_notificacion("Prompt generado y copiado al portapapeles")
 
     nombre_archivo = os.path.join(
-        r"C:\Users\User\Downloads", f"{carpeta_principal}_prompt.txt"
+        os.path.expanduser("~"), "Downloads", f"{carpeta_principal}_prompt.txt"
     )
+    os.makedirs(os.path.dirname(nombre_archivo), exist_ok=True)
     with open(nombre_archivo, "w") as file:
         file.write(contenido_prompt)
     mostrar_notificacion(f"Prompt guardado como {nombre_archivo}")
