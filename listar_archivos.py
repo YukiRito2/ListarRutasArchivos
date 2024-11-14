@@ -2,7 +2,7 @@ import os
 import json
 import re
 import tkinter as tk
-from tkinter import ttk, filedialog
+from tkinter import ttk, filedialog, messagebox
 
 # Nombre del archivo de historial
 HISTORIAL_FILE = "historial_rutas.txt"
@@ -128,6 +128,10 @@ def copiar_rutas():
         root.clipboard_clear()
         root.clipboard_append("\n".join(rutas))
         mostrar_notificacion("Rutas copiadas al portapapeles")
+    else:
+        messagebox.showwarning(
+            "Advertencia", "Debe ingresar la ruta para realizar la búsqueda."
+        )
 
 
 # Función para mostrar una notificación temporal
@@ -149,9 +153,16 @@ def seleccionar_historial(event):
         obtener_archivos(ruta)
 
 
-# Función para generar y copiar el prompt al portapapeles
+# Función para generar y copiar el prompt al portapapeles y guardar en un archivo TXT
 def generar_prompt():
     rutas = archivos_listbox.get(0, tk.END)
+    if not rutas:
+        messagebox.showwarning(
+            "Advertencia", "Debe ingresar la ruta para generar el prompt."
+        )
+        return
+
+    carpeta_principal = os.path.basename(os.path.dirname(rutas[0]))
     encabezado = (
         "Hola, a continuación te muestro un resumen detallado del proyecto. "
         "Úsalo para entender su estructura y responder a mis preguntas sobre su organización y configuración. "
@@ -231,6 +242,14 @@ def generar_prompt():
     root.clipboard_clear()
     root.clipboard_append(contenido_prompt)
     mostrar_notificacion("Prompt generado y copiado al portapapeles")
+
+    # Guardar el prompt en un archivo TXT en la ruta especificada
+    nombre_archivo = os.path.join(
+        r"C:\Users\User\Downloads", f"{carpeta_principal}_prompt.txt"
+    )
+    with open(nombre_archivo, "w") as file:
+        file.write(contenido_prompt)
+    mostrar_notificacion(f"Prompt guardado como {nombre_archivo}")
 
 
 # Crear los widgets sin estilos adicionales para los botones
