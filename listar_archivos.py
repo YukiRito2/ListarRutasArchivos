@@ -4,16 +4,13 @@ import re
 import tkinter as tk
 from tkinter import ttk, filedialog, messagebox
 
-# Nombre del archivo de historial
 HISTORIAL_FILE = "historial_rutas.txt"
 
-# Crear la ventana principal
 root = tk.Tk()
 root.title("Gestor de Rutas")
 root.geometry("700x500")
 
 
-# Función para centrar una ventana
 def centrar_ventana(ventana, width=600, height=400):
     ventana.update_idletasks()
     x = (ventana.winfo_screenwidth() // 2) - (width // 2)
@@ -21,14 +18,11 @@ def centrar_ventana(ventana, width=600, height=400):
     ventana.geometry(f"{width}x{height}+{x}+{y}")
 
 
-# Centrar la ventana principal
 centrar_ventana(root)
 
-# Historial de rutas buscadas
 historial = []
 
 
-# Función para leer el archivo de historial
 def leer_historial():
     if os.path.exists(HISTORIAL_FILE):
         with open(HISTORIAL_FILE, "r") as f:
@@ -36,14 +30,12 @@ def leer_historial():
     return []
 
 
-# Función para escribir el historial en el archivo
 def escribir_historial():
     with open(HISTORIAL_FILE, "w") as f:
         for ruta in historial:
             f.write(ruta + "\n")
 
 
-# Función para obtener todos los archivos en un directorio y subdirectorios
 def obtener_archivos(ruta):
     archivos = []
     carpetas_omitidas = {"node_modules", ".git", "build", "dist", "venv"}
@@ -60,14 +52,12 @@ def obtener_archivos(ruta):
     mostrar_archivos(archivos)
 
 
-# Función para mostrar archivos en la lista
 def mostrar_archivos(archivos):
     archivos_listbox.delete(0, tk.END)
     for archivo in archivos:
         archivos_listbox.insert(tk.END, archivo)
 
 
-# Función para manejar la búsqueda automática cuando se selecciona una carpeta
 def seleccionar_carpeta_y_buscar():
     carpeta = filedialog.askdirectory(title="Seleccionar Carpeta")
     if carpeta:
@@ -79,7 +69,6 @@ def seleccionar_carpeta_y_buscar():
         ventana.destroy()
 
 
-# Nueva ventana para ingresar la ruta o buscar carpeta
 def ventana_buscar_ruta():
     global ventana
     ventana = tk.Toplevel(root)
@@ -121,7 +110,6 @@ def ventana_buscar_ruta():
     confirmar_button.pack(side=tk.LEFT, padx=5)
 
 
-# Función para copiar rutas con notificación sin ventana
 def copiar_rutas():
     rutas = archivos_listbox.get(0, tk.END)
     if rutas:
@@ -134,7 +122,6 @@ def copiar_rutas():
         )
 
 
-# Función para mostrar una notificación temporal
 def mostrar_notificacion(mensaje):
     notificacion_label.config(text=mensaje)
     notificacion_label.pack()
@@ -145,7 +132,6 @@ def ocultar_notificacion():
     notificacion_label.pack_forget()
 
 
-# Función para seleccionar una ruta del historial y buscar los archivos
 def seleccionar_historial(event):
     seleccion = historial_listbox.curselection()
     if seleccion:
@@ -153,7 +139,6 @@ def seleccionar_historial(event):
         obtener_archivos(ruta)
 
 
-# Función para generar y copiar el prompt al portapapeles y guardar en un archivo TXT
 def generar_prompt():
     rutas = archivos_listbox.get(0, tk.END)
     if not rutas:
@@ -243,7 +228,6 @@ def generar_prompt():
     root.clipboard_append(contenido_prompt)
     mostrar_notificacion("Prompt generado y copiado al portapapeles")
 
-    # Guardar el prompt en un archivo TXT en la ruta especificada
     nombre_archivo = os.path.join(
         r"C:\Users\User\Downloads", f"{carpeta_principal}_prompt.txt"
     )
@@ -252,7 +236,6 @@ def generar_prompt():
     mostrar_notificacion(f"Prompt guardado como {nombre_archivo}")
 
 
-# Crear los widgets sin estilos adicionales para los botones
 frame_botones = tk.Frame(root)
 frame_botones.pack(pady=10)
 
