@@ -1,17 +1,19 @@
 # Gestor de Rutas y Generador de Prompts Detallado
 
-Este proyecto es una aplicación gráfica avanzada desarrollada en Python, que utiliza `Tkinter` para ofrecer una interfaz intuitiva y poderosa para gestionar y explorar la estructura de directorios de proyectos. Además, permite generar prompts descriptivos y organizados, útiles para comprender y documentar proyectos complejos con múltiples microservicios.
+Este proyecto es una aplicación gráfica avanzada desarrollada en Python, que utiliza `Tkinter` para ofrecer una interfaz intuitiva para gestionar y explorar la estructura de directorios de proyectos. Además, permite generar prompts descriptivos y organizados, útiles para documentar y compartir la configuración de proyectos complejos con múltiples microservicios.
 
 ## Características
 
-- **Búsqueda de Carpetas**: Selecciona una carpeta desde la interfaz gráfica para listar todos los archivos, incluidas las subcarpetas. Permite ignorar carpetas específicas como `node_modules`, `.git`, `build`, `dist` y `venv` para agilizar la exploración.
+- **Búsqueda y Listado de Archivos**: Selecciona una carpeta desde la interfaz gráfica para listar todos los archivos y subcarpetas. Las carpetas de uso común en desarrollo, como `node_modules`, `.git`, `build`, `dist` y `venv`, se omiten automáticamente para agilizar la exploración.
 - **Historial de Búsquedas**: Las rutas buscadas se almacenan automáticamente y pueden seleccionarse de nuevo desde el historial, facilitando el acceso a proyectos previamente explorados.
-- **Copia de Rutas al Portapapeles**: Permite copiar al portapapeles todas las rutas de los archivos listados, lo que facilita su uso en otras aplicaciones o documentos.
-- **Generación de Prompts Informativos**: Crea un prompt detallado con la estructura y configuración del proyecto, ideal para documentar y compartir el proyecto. El prompt incluye:
-  - **Estructura General del Proyecto**: Listado de archivos y carpetas detectados en el proyecto.
-  - **Dependencias Clave**: Extrae y resalta las dependencias principales desde archivos `package.json` para tener una vista rápida del stack tecnológico del proyecto.
-  - **Scripts de Ejecución Clave**: Identifica scripts importantes en `package.json` (como `start`, `build`, `test`), para ver rápidamente cómo ejecutar y construir el proyecto.
-  - **Resumen de Rutas de la API**: Extrae y organiza las rutas principales de archivos `routes.ts` o `controllers`, agrupándolas por método HTTP (GET, POST, PUT, DELETE) y URL.
+- **Copia de Rutas al Portapapeles**: Copia todas las rutas listadas al portapapeles con un solo clic, facilitando su uso en otras aplicaciones o documentos.
+- **Generación de Prompts Informativos**: Crea un archivo de texto y copia al portapapeles un prompt detallado con la estructura y configuración del proyecto. Este prompt es ideal para documentar y compartir la estructura del proyecto, incluyendo:
+  - **Estructura General del Proyecto**: Listado de archivos y carpetas detectados.
+  - **Dependencias Clave**: Extrae y resalta dependencias principales de los archivos `package.json`, proporcionando una vista rápida del stack tecnológico del proyecto.
+  - **Scripts de Ejecución Clave**: Identifica y detalla los scripts importantes en `package.json` (como `start`, `build`, `test`) para ver rápidamente cómo ejecutar y construir el proyecto.
+  - **Resumen de Rutas de la API**: Extrae y organiza las rutas principales de archivos `routes.ts` o `controllers`, agrupándolas por método HTTP (GET, POST, PUT, DELETE) y URL, facilitando la comprensión de la estructura de la API.
+
+- **Guardado Automático en Archivo `.txt`**: Además de copiar el prompt generado al portapapeles, se guarda automáticamente un archivo `.txt` en la carpeta de Descargas del usuario, titulado con el nombre de la carpeta principal del proyecto.
 
 - **Interfaz Gráfica Intuitiva**: Basada en `Tkinter`, ofrece un manejo fácil y rápido de carpetas y archivos, sin necesidad de usar la terminal.
 
